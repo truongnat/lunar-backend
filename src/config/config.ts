@@ -7,7 +7,10 @@ export const appConfig = registerAs('app', () => ({
 }));
 
 export const databaseConfig = registerAs('database', () => ({
-  url: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/lunar_calendar',
+  // Align default with docker-compose (postgres:secret @ vietnam_lunar_db)
+  url:
+    process.env.DATABASE_URL ||
+    'postgresql://postgres:secret@localhost:5432/vietnam_lunar_db',
 }));
 
 export const securityConfig = registerAs('security', () => ({
