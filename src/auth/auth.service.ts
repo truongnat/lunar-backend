@@ -151,7 +151,7 @@ export class AuthService {
       .select()
       .from(users)
       .where(eq(users.email, email))
-      .then((res) => res[0]);
+      .then((res) => res[0])
 
     if (existingUser) {
       throw new UnauthorizedException('Email đã được sử dụng');

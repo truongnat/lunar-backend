@@ -29,10 +29,10 @@ export class HealthService {
   async getHealth(): Promise<HealthCheckResult> {
     return this.health.check([
       async () =>
-        this.disk.checkStorage('root', {
+        this.disk.checkStorage('storage', {
           // 100GB
           threshold: 100 * 1024 * 1024 * 1024,
-          path: '/',
+          path: process.cwd(),
         }),
       () => this.memory.checkHeap('memory_heap', 150 * 1024 * 1024),
       () => this.memory.checkRSS('memory_rss', 150 * 1024 * 1024),
