@@ -10,6 +10,22 @@ export const databaseConfig = registerAs('database', () => ({
   url: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/lunar_calendar',
 }));
 
+export const securityConfig = registerAs('security', () => ({
+  cors: {
+    enabled: process.env.CORS_ENABLED === 'true',
+    origin: process.env.CORS_ORIGIN || '*',
+    methods: process.env.CORS_METHODS || 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: process.env.CORS_CREDENTIALS === 'true',
+  },
+  rateLimit: {
+    ttl: parseInt((process.env.RATE_LIMIT_TTL || '60'), 10) ,
+    limit: parseInt((process.env.RATE_LIMIT_MAX || '100'), 10),
+  },
+  csrf: {
+    enabled: process.env.CSRF_ENABLED === 'true',
+  },
+}));
+
 export const authConfig = registerAs('auth', () => ({
   jwtSecret: (process.env.JWT_SECRET || 'your-secret-key') as JwtModuleOptions['secret'],
   jwtExpirationTime: (process.env.JWT_EXPIRATION_TIME || '1h') as any,

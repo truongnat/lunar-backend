@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UseGuards, UseInterceptors } from '@nestjs/common';
 import { LunarEventsService } from './lunar-events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
@@ -6,6 +6,8 @@ import { GetEventsDto } from './dto/get-events.dto';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { User } from '../auth/decorators/user.decorator';
+import { HttpCacheInterceptor } from '../cache/interceptors/http-cache.interceptor';
+import { CacheKey } from '../cache/decorators/cache-key.decorator';
 
 @ApiTags('Lunar Events')
 @Controller('lunar/events')
@@ -23,6 +25,8 @@ export class LunarEventsController {
   }
 
   @Get()
+  @UseInterceptors(HttpCacheInterceptor)
+  @CacheKey('lunar-events-all')
   @ApiOperation({ summary: 'Get all lunar events' })
   @ApiResponse({ status: 200, description: 'Returns all lunar events for the user' })
   findAll(@User('id') userId: number, @Query() getEventsDto: GetEventsDto) {
@@ -30,6 +34,8 @@ export class LunarEventsController {
   }
 
   @Get(':id')
+  @UseInterceptors(HttpCacheInterceptor)
+  @CacheKey('lunar-event')
   @ApiOperation({ summary: 'Get a specific lunar event' })
   @ApiResponse({ status: 200, description: 'Returns the specified lunar event' })
   findOne(@User('id') userId: number, @Param('id', ParseIntPipe) id: number) {

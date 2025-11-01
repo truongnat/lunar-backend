@@ -9,13 +9,16 @@ import { HealthModule } from './health/health.module';
 import { MediaModule } from './media/media.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import config from './config/config';
+import { AppCacheModule } from './cache/cache.module';
+import { SecurityModule } from './security/security.module';
+import config, { securityConfig } from './config/config';
+import { cacheConfig } from './config/cache.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [config],
+      load: [config, securityConfig, cacheConfig],
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'),
@@ -26,6 +29,8 @@ import config from './config/config';
     LunarModule,
     HealthModule,
     MediaModule,
+    AppCacheModule,
+    SecurityModule,
   ],
   controllers: [AppController],
   providers: [AppService],

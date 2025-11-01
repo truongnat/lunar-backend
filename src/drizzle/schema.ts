@@ -7,7 +7,8 @@ import {
   date,
   boolean,
   integer,
-  pgEnum
+  pgEnum,
+  index
 } from 'drizzle-orm/pg-core';
 
 // Bảng Users (2. Auth)
@@ -19,6 +20,11 @@ export const users = pgTable('users', {
   googleId: varchar('google_id', { length: 256 }).unique(), // ID từ Google OAuth
   phone: varchar('phone', { length: 20 }).unique(), // Số điện thoại cho Phone Auth
   createdAt: timestamp('created_at').defaultNow().notNull(),
+}, (table) => {
+  return {
+    emailIdx: index('users_email_idx').on(table.email),
+    createdAtIdx: index('users_created_at_idx').on(table.createdAt),
+  };
 });
 
 // Bảng Events (3. Tạo Event)
@@ -48,6 +54,12 @@ export const events = pgTable('events', {
 
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at'),
+}, (table) => {
+  return {
+    userIdIdx: index('events_user_id_idx').on(table.userId),
+    solarDateIdx: index('events_solar_date_idx').on(table.solarDate),
+    typeIdx: index('events_type_idx').on(table.type),
+  };
 });
 
 // Bảng Calendar Data (1. Dữ liệu Lịch Âm) - Dữ liệu tĩnh
@@ -82,4 +94,10 @@ export const media = pgTable('media', {
   isPublic: boolean('is_public').default(false),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at'),
+}, (table) => {
+  return {
+    userIdIdx: index('media_user_id_idx').on(table.userId),
+    typeIdx: index('media_type_idx').on(table.type),
+    createdAtIdx: index('media_created_at_idx').on(table.createdAt),
+  };
 });

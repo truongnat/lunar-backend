@@ -7,6 +7,8 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { User } from '../auth/decorators/user.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags, ApiOperation, ApiResponse, ApiConsumes, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
+import { HttpCacheInterceptor } from '../cache/interceptors/http-cache.interceptor';
+import { CacheKey } from '../cache/decorators/cache-key.decorator';
 
 @ApiTags('Media')
 @Controller('media')
@@ -50,6 +52,8 @@ export class MediaController {
   }
 
   @Get()
+  @UseInterceptors(HttpCacheInterceptor)
+  @CacheKey('media-all')
   @ApiOperation({ summary: 'Get all media files' })
   @ApiResponse({ status: 200, description: 'Returns all media files for the user' })
   findAll(@User('id') userId: number, @Query() getMediaDto: GetMediaDto) {
@@ -57,6 +61,8 @@ export class MediaController {
   }
 
   @Get(':id')
+  @UseInterceptors(HttpCacheInterceptor)
+  @CacheKey('media-one')
   @ApiOperation({ summary: 'Get a specific media file' })
   @ApiResponse({ status: 200, description: 'Returns the specified media file' })
   findOne(@User('id') userId: number, @Param('id', ParseIntPipe) id: number) {
