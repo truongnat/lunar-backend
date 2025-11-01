@@ -23,6 +23,9 @@ export const securityConfig = registerAs('security', () => ({
   },
   csrf: {
     enabled: process.env.CSRF_ENABLED === 'true',
+    cookieName: process.env.CSRF_COOKIE_NAME || '__Host-psifi.x-csrf-token',
+    headerName: process.env.CSRF_HEADER_NAME || 'x-csrf-token',
+    secret: process.env.CSRF_SECRET || 'your_32_character_secret_key_here',
   },
 }));
 
@@ -36,8 +39,20 @@ export const authConfig = registerAs('auth', () => ({
   },
 }));
 
+export const cacheConfig = registerAs('cache', () => ({
+  ttl: parseInt((process.env.CACHE_TTL || '60'), 10), // seconds
+  max: parseInt((process.env.CACHE_MAX_ITEMS || '100'), 10), // maximum number of items in cache
+  isGlobal: true,
+  store: process.env.CACHE_STORE || 'memory',
+  host: process.env.REDIS_HOST || 'localhost',
+  port: parseInt((process.env.REDIS_PORT || '6379'), 10),
+  password: process.env.REDIS_PASSWORD || '',
+}));
+
 export default () => ({
   app: appConfig(),
   database: databaseConfig(),
+  security: securityConfig(),
   auth: authConfig(),
+  cache: cacheConfig()
 });

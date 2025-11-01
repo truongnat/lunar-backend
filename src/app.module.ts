@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { DrizzleModule } from './drizzle/drizzle.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
@@ -11,14 +9,13 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { AppCacheModule } from './cache/cache.module';
 import { SecurityModule } from './security/security.module';
-import config, { securityConfig } from './config/config';
-import { cacheConfig } from './config/cache.config';
+import config from './config/config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [config, securityConfig, cacheConfig],
+      load: [config],
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'),
@@ -30,9 +27,7 @@ import { cacheConfig } from './config/cache.config';
     HealthModule,
     MediaModule,
     AppCacheModule,
-    SecurityModule,
+    // SecurityModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

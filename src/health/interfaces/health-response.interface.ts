@@ -1,3 +1,5 @@
+import * as os from 'os';
+
 export interface HealthResponse {
   status: string;
   timestamp: string;
@@ -12,6 +14,7 @@ export interface SystemInfoResponse extends HealthResponse {
     totalMemory: number;
     freeMemory: number;
     cpuUsage: number;
+    cpus: os.CpuInfo[];
   };
   process: {
     pid: number;
@@ -33,7 +36,7 @@ export interface DatabaseInfoResponse extends HealthResponse {
       databaseSize: number;
       activeConnections: number;
       responseTimeMs: number;
-      error: string
+      error: string;
     }>;
   };
 }

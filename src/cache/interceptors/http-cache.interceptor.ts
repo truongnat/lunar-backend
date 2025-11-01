@@ -1,15 +1,16 @@
 import { Injectable, ExecutionContext } from '@nestjs/common';
 import { CACHE_KEY_METADATA } from '../decorators/cache-key.decorator';
-import {  CacheInterceptor } from '@nestjs/cache-manager';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
 @Injectable()
 export class HttpCacheInterceptor extends CacheInterceptor {
   trackBy(context: ExecutionContext): string | undefined {
     const request = context.switchToHttp().getRequest();
     const { httpAdapter } = this.httpAdapterHost;
-    
+    const isGetRequest = request.method === 'GET';
+
     // Không cache cho các request không phải GET
-    if (request.method !== 'GET') {
+    if (isGetRequest) {
       return undefined;
     }
 
@@ -21,12 +22,6 @@ export class HttpCacheInterceptor extends CacheInterceptor {
 
     if (cacheKey) {
       return `${cacheKey}:${request.url}`;
-    }
-
-    // Tạo cache key từ URL và query params
-    const isGetRequest = request.method === 'GET';
-    if (!isGetRequest) {
-      return undefined;
     }
 
     // Thêm userId vào cache key nếu có

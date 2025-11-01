@@ -1,11 +1,17 @@
 import { Module } from '@nestjs/common';
 import { DrizzleService } from './drizzle.service';
+import { databaseConfig } from 'src/config';
 import { ConfigModule } from '@nestjs/config';
-import { databaseConfig } from '../config/config';
 
 @Module({
   imports: [ConfigModule.forFeature(databaseConfig)],
-  providers: [DrizzleService],
+  providers: [
+    DrizzleService,
+    {
+      provide: databaseConfig.KEY,
+      useFactory: () => databaseConfig(),
+    },
+  ],
   exports: [DrizzleService],
 })
 export class DrizzleModule {}

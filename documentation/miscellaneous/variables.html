@@ -1,0 +1,1130 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>lunar-calendar documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">lunar-calendar documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content miscellaneous-variables">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Miscellaneous</li>
+  <li class="breadcrumb-item">Variables</li>
+</ol>
+
+<section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                        <li>
+                            <a href="#ABOUT" title="src/lunar/constants.ts" ><b>ABOUT</b>&nbsp;&nbsp;&nbsp;(src/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#appConfig" title="src/config/config.ts" ><b>appConfig</b>&nbsp;&nbsp;&nbsp;(src/.../config.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#authConfig" title="src/config/config.ts" ><b>authConfig</b>&nbsp;&nbsp;&nbsp;(src/.../config.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CACHE_KEY_METADATA" title="src/cache/decorators/cache-key.decorator.ts" ><b>CACHE_KEY_METADATA</b>&nbsp;&nbsp;&nbsp;(src/.../cache-key.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#cacheConfig" title="src/config/config.ts" ><b>cacheConfig</b>&nbsp;&nbsp;&nbsp;(src/.../config.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CacheKey" title="src/cache/decorators/cache-key.decorator.ts" ><b>CacheKey</b>&nbsp;&nbsp;&nbsp;(src/.../cache-key.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#calendarData" title="src/drizzle/schema.ts" ><b>calendarData</b>&nbsp;&nbsp;&nbsp;(src/.../schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CAN" title="src/lunar/constants.ts" ><b>CAN</b>&nbsp;&nbsp;&nbsp;(src/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CHI" title="src/lunar/constants.ts" ><b>CHI</b>&nbsp;&nbsp;&nbsp;(src/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#databaseConfig" title="src/config/config.ts" ><b>databaseConfig</b>&nbsp;&nbsp;&nbsp;(src/.../config.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#events" title="src/drizzle/schema.ts" ><b>events</b>&nbsp;&nbsp;&nbsp;(src/.../schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#FIRST_DAY" title="src/lunar/constants.ts" ><b>FIRST_DAY</b>&nbsp;&nbsp;&nbsp;(src/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#GIO_HD" title="src/lunar/constants.ts" ><b>GIO_HD</b>&nbsp;&nbsp;&nbsp;(src/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#LAST_DAY" title="src/lunar/constants.ts" ><b>LAST_DAY</b>&nbsp;&nbsp;&nbsp;(src/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#media" title="src/drizzle/schema.ts" ><b>media</b>&nbsp;&nbsp;&nbsp;(src/.../schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#mediaTypeEnum" title="src/drizzle/schema.ts" ><b>mediaTypeEnum</b>&nbsp;&nbsp;&nbsp;(src/.../schema.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#securityConfig" title="src/config/config.ts" ><b>securityConfig</b>&nbsp;&nbsp;&nbsp;(src/.../config.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TIETKHI" title="src/lunar/constants.ts" ><b>TIETKHI</b>&nbsp;&nbsp;&nbsp;(src/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TK19" title="src/lunar/constants.ts" ><b>TK19</b>&nbsp;&nbsp;&nbsp;(src/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TK20" title="src/lunar/constants.ts" ><b>TK20</b>&nbsp;&nbsp;&nbsp;(src/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TK21" title="src/lunar/constants.ts" ><b>TK21</b>&nbsp;&nbsp;&nbsp;(src/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TK22" title="src/lunar/constants.ts" ><b>TK22</b>&nbsp;&nbsp;&nbsp;(src/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TUAN" title="src/lunar/constants.ts" ><b>TUAN</b>&nbsp;&nbsp;&nbsp;(src/.../constants.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#User" title="src/auth/decorators/user.decorator.ts" ><b>User</b>&nbsp;&nbsp;&nbsp;(src/.../user.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#users" title="src/drizzle/schema.ts" ><b>users</b>&nbsp;&nbsp;&nbsp;(src/.../schema.ts)</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <h3>src/lunar/constants.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ABOUT"></a>
+                    <span class="name">
+                        <span ><b>ABOUT</b></span>
+                        <a href="#ABOUT"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&quot;Âm lịch Việt Nam - Version 0.8\n© 2004 Hồ Ngọc Đức [http://come.to/duc]&quot;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Copyright 2004 Ho Ngoc Duc [<a href="http://come.to/duc%5D">http://come.to/duc]</a>. All Rights Reserved.
+Permission to use, copy, modify, and redistribute this software and its
+documentation for personal, non-commercial use is hereby granted provided that
+this copyright notice appears in all copies.
+Converted to TypeScript by Lunar Calendar Project</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CAN"></a>
+                    <span class="name">
+                        <span ><b>CAN</b></span>
+                        <a href="#CAN"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&quot;Giáp&quot;, &quot;Ất&quot;, &quot;Bính&quot;, &quot;Đinh&quot;, &quot;Mậu&quot;, &quot;Kỷ&quot;, &quot;Canh&quot;, &quot;Tân&quot;, &quot;Nhâm&quot;, &quot;Quý&quot;]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CHI"></a>
+                    <span class="name">
+                        <span ><b>CHI</b></span>
+                        <a href="#CHI"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&quot;Tý&quot;, &quot;Sửu&quot;, &quot;Dần&quot;, &quot;Mão&quot;, &quot;Thìn&quot;, &quot;Tỵ&quot;, &quot;Ngọ&quot;, &quot;Mùi&quot;, &quot;Thân&quot;, &quot;Dậu&quot;, &quot;Tuất&quot;, &quot;Hợi&quot;]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="FIRST_DAY"></a>
+                    <span class="name">
+                        <span ><b>FIRST_DAY</b></span>
+                        <a href="#FIRST_DAY"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>jdn(25, 1, 1800)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="GIO_HD"></a>
+                    <span class="name">
+                        <span ><b>GIO_HD</b></span>
+                        <a href="#GIO_HD"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&quot;110100101100&quot;, &quot;001101001011&quot;, &quot;110011010010&quot;, &quot;101100110100&quot;, &quot;001011001101&quot;, &quot;010010110011&quot;]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="LAST_DAY"></a>
+                    <span class="name">
+                        <span ><b>LAST_DAY</b></span>
+                        <a href="#LAST_DAY"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>jdn(31, 12, 2199)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TIETKHI"></a>
+                    <span class="name">
+                        <span ><b>TIETKHI</b></span>
+                        <a href="#TIETKHI"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+  &quot;Xuân phân&quot;, &quot;Thanh minh&quot;, &quot;Cốc vũ&quot;, &quot;Lập hạ&quot;, &quot;Tiểu mãn&quot;, &quot;Mang chủng&quot;,
+  &quot;Hạ chí&quot;, &quot;Tiểu thử&quot;, &quot;Đại thử&quot;, &quot;Lập thu&quot;, &quot;Xử thử&quot;, &quot;Bạch lộ&quot;,
+  &quot;Thu phân&quot;, &quot;Hàn lộ&quot;, &quot;Sương giáng&quot;, &quot;Lập đông&quot;, &quot;Tiểu tuyết&quot;, &quot;Đại tuyết&quot;,
+  &quot;Đông chí&quot;, &quot;Tiểu hàn&quot;, &quot;Đại hàn&quot;, &quot;Lập xuân&quot;, &quot;Vũ Thủy&quot;, &quot;Kinh trập&quot;
+]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TK19"></a>
+                    <span class="name">
+                        <span ><b>TK19</b></span>
+                        <a href="#TK19"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+  0x30baa3, 0x56ab50, 0x422ba0, 0x2cab61, 0x52a370, 0x3c51e8, 0x60d160, 0x4ae4b0, 0x376926, 0x58daa0,
+  0x445b50, 0x3116d2, 0x562ae0, 0x3ea2e0, 0x28e2d2, 0x4ec950, 0x38d556, 0x5cb520, 0x46b690, 0x325da4,
+  0x5855d0, 0x4225d0, 0x2ca5b3, 0x52a2b0, 0x3da8b7, 0x60a950, 0x4ab4a0, 0x35b2a5, 0x5aad50, 0x4455b0,
+  0x302b74, 0x562570, 0x4052f9, 0x6452b0, 0x4e6950, 0x386d56, 0x5e5aa0, 0x46ab50, 0x3256d4, 0x584ae0,
+  0x42a570, 0x2d4553, 0x50d2a0, 0x3be8a7, 0x60d550, 0x4a5aa0, 0x34ada5, 0x5a95d0, 0x464ae0, 0x2eaab4,
+  0x54a4d0, 0x3ed2b8, 0x64b290, 0x4cb550, 0x385757, 0x5e2da0, 0x4895d0, 0x324d75, 0x5849b0, 0x42a4b0,
+  0x2da4b3, 0x506a90, 0x3aad98, 0x606b50, 0x4c2b60, 0x359365, 0x5a9370, 0x464970, 0x306964, 0x52e4a0,
+  0x3cea6a, 0x62da90, 0x4e5ad0, 0x392ad6, 0x5e2ae0, 0x4892e0, 0x32cad5, 0x56c950, 0x40d4a0, 0x2bd4a3,
+  0x50b690, 0x3a57a7, 0x6055b0, 0x4c25d0, 0x3695b5, 0x5a92b0, 0x44a950, 0x2ed954, 0x54b4a0, 0x3cb550,
+  0x286b52, 0x4e55b0, 0x3a2776, 0x5e2570, 0x4852b0, 0x32aaa5, 0x56e950, 0x406aa0, 0x2abaa3, 0x50ab50
+]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TK20"></a>
+                    <span class="name">
+                        <span ><b>TK20</b></span>
+                        <a href="#TK20"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+  0x3c4bd8, 0x624ae0, 0x4ca570, 0x3854d5, 0x5cd260, 0x44d950, 0x315554, 0x5656a0, 0x409ad0, 0x2a55d2,
+  0x504ae0, 0x3aa5b6, 0x60a4d0, 0x48d250, 0x33d255, 0x58b540, 0x42d6a0, 0x2cada2, 0x5295b0, 0x3f4977,
+  0x644970, 0x4ca4b0, 0x36b4b5, 0x5c6a50, 0x466d50, 0x312b54, 0x562b60, 0x409570, 0x2c52f2, 0x504970,
+  0x3a6566, 0x5ed4a0, 0x48ea50, 0x336a95, 0x585ad0, 0x442b60, 0x2f86e3, 0x5292e0, 0x3dc8d7, 0x62c950,
+  0x4cd4a0, 0x35d8a6, 0x5ab550, 0x4656a0, 0x31a5b4, 0x5625d0, 0x4092d0, 0x2ad2b2, 0x50a950, 0x38b557,
+  0x5e6ca0, 0x48b550, 0x355355, 0x584da0, 0x42a5b0, 0x2f4573, 0x5452b0, 0x3ca9a8, 0x60e950, 0x4c6aa0,
+  0x36aea6, 0x5aab50, 0x464b60, 0x30aae4, 0x56a570, 0x405260, 0x28f263, 0x4ed940, 0x38db47, 0x5cd6a0,
+  0x4896d0, 0x344dd5, 0x5a4ad0, 0x42a4d0, 0x2cd4b4, 0x52b250, 0x3cd558, 0x60b540, 0x4ab5a0, 0x3755a6,
+  0x5c95b0, 0x4649b0, 0x30a974, 0x56a4b0, 0x40aa50, 0x29aa52, 0x4e6d20, 0x39ad47, 0x5eab60, 0x489370,
+  0x344af5, 0x5a4970, 0x4464b0, 0x2c74a3, 0x50ea50, 0x3d6a58, 0x6256a0, 0x4aaad0, 0x3696d5, 0x5c92e0
+]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TK21"></a>
+                    <span class="name">
+                        <span ><b>TK21</b></span>
+                        <a href="#TK21"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+  0x46c960, 0x2ed954, 0x54d4a0, 0x3eda50, 0x2a7552, 0x4e56a0, 0x38a7a7, 0x5ea5d0, 0x4a92b0, 0x32aab5,
+  0x58a950, 0x42b4a0, 0x2cbaa4, 0x50ad50, 0x3c55d9, 0x624ba0, 0x4ca5b0, 0x375176, 0x5c5270, 0x466930,
+  0x307934, 0x546aa0, 0x3ead50, 0x2a5b52, 0x504b60, 0x38a6e6, 0x5ea4e0, 0x48d260, 0x32ea65, 0x56d520,
+  0x40daa0, 0x2d56a3, 0x5256d0, 0x3c4afb, 0x6249d0, 0x4ca4d0, 0x37d0b6, 0x5ab250, 0x44b520, 0x2edd25,
+  0x54b5a0, 0x3e55d0, 0x2a55b2, 0x5049b0, 0x3aa577, 0x5ea4b0, 0x48aa50, 0x33b255, 0x586d20, 0x40ad60,
+  0x2d4b63, 0x525370, 0x3e49e8, 0x60c970, 0x4c54b0, 0x3768a6, 0x5ada50, 0x445aa0, 0x2fa6a4, 0x54aad0,
+  0x4052e0, 0x28d2e3, 0x4ec950, 0x38d557, 0x5ed4a0, 0x46d950, 0x325d55, 0x5856a0, 0x42a6d0, 0x2c55d4,
+  0x5252b0, 0x3ca9b8, 0x62a930, 0x4ab490, 0x34b6a6, 0x5aad50, 0x4655a0, 0x2eab64, 0x54a570, 0x4052b0,
+  0x2ab173, 0x4e6930, 0x386b37, 0x5e6aa0, 0x48ad50, 0x332ad5, 0x582b60, 0x42a570, 0x2e52e4, 0x50d160,
+  0x3ae958, 0x60d520, 0x4ada90, 0x355aa6, 0x5a56d0, 0x462ae0, 0x30a9d4, 0x54a2d0, 0x3ed150, 0x28e952
+]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TK22"></a>
+                    <span class="name">
+                        <span ><b>TK22</b></span>
+                        <a href="#TK22"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+  0x4eb520, 0x38d727, 0x5eada0, 0x4a55b0, 0x362db5, 0x5a45b0, 0x44a2b0, 0x2eb2b4, 0x54a950, 0x3cb559,
+  0x626b20, 0x4cad50, 0x385766, 0x5c5370, 0x484570, 0x326574, 0x5852b0, 0x406950, 0x2a7953, 0x505aa0,
+  0x3baaa7, 0x5ea6d0, 0x4a4ae0, 0x35a2e5, 0x5aa550, 0x42d2a0, 0x2de2a4, 0x52d550, 0x3e5abb, 0x6256a0,
+  0x4c96d0, 0x3949b6, 0x5e4ab0, 0x46a8d0, 0x30d4b5, 0x56b290, 0x40b550, 0x2a6d52, 0x504da0, 0x3b9567,
+  0x609570, 0x4a49b0, 0x34a975, 0x5a64b0, 0x446a90, 0x2cba94, 0x526b50, 0x3e2b60, 0x28ab61, 0x4c9570,
+  0x384ae6, 0x5cd160, 0x46e4a0, 0x2eed25, 0x54da90, 0x405b50, 0x2c36d3, 0x502ae0, 0x3a93d7, 0x6092d0,
+  0x4ac950, 0x32d556, 0x58b4a0, 0x42b690, 0x2e5d94, 0x5255b0, 0x3e25fa, 0x6425b0, 0x4e92b0, 0x36aab6,
+  0x5c6950, 0x4674a0, 0x31b2a5, 0x54ad50, 0x4055a0, 0x2aab73, 0x522570, 0x3a5377, 0x6052b0, 0x4a6950,
+  0x346d56, 0x585aa0, 0x42ab50, 0x2e56d4, 0x544ae0, 0x3ca570, 0x2864d2, 0x4cd260, 0x36eaa6, 0x5ad550,
+  0x465aa0, 0x30ada5, 0x5695d0, 0x404ad0, 0x2aa9b3, 0x50a4d0, 0x3ad2b7, 0x5eb250, 0x48b540, 0x33d556
+]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TUAN"></a>
+                    <span class="name">
+                        <span ><b>TUAN</b></span>
+                        <a href="#TUAN"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&quot;Chủ nhật&quot;, &quot;Thứ hai&quot;, &quot;Thứ ba&quot;, &quot;Thứ tư&quot;, &quot;Thứ năm&quot;, &quot;Thứ sáu&quot;, &quot;Thứ bảy&quot;]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/config/config.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="appConfig"></a>
+                    <span class="name">
+                        <span ><b>appConfig</b></span>
+                        <a href="#appConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>registerAs(&#x27;app&#x27;, () &#x3D;&gt; ({
+  port: parseInt((process.env.PORT || &#x27;5000&#x27;), 10),
+  frontendUrl: process.env.FRONTEND_URL || &#x27;http://localhost:3000&#x27;,
+}))</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="authConfig"></a>
+                    <span class="name">
+                        <span ><b>authConfig</b></span>
+                        <a href="#authConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>registerAs(&#x27;auth&#x27;, () &#x3D;&gt; ({
+  jwtSecret: (process.env.JWT_SECRET || &#x27;your-secret-key&#x27;) as JwtModuleOptions[&#x27;secret&#x27;],
+  jwtExpirationTime: (process.env.JWT_EXPIRATION_TIME || &#x27;1h&#x27;) as any,
+  google: {
+    clientId: process.env.GOOGLE_CLIENT_ID || &#x27;&#x27;,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET || &#x27;&#x27;,
+    callbackUrl: process.env.GOOGLE_CALLBACK_URL || &#x27;http://localhost:3000/auth/google/callback&#x27;,
+  },
+}))</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cacheConfig"></a>
+                    <span class="name">
+                        <span ><b>cacheConfig</b></span>
+                        <a href="#cacheConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>registerAs(&#x27;cache&#x27;, () &#x3D;&gt; ({
+  ttl: parseInt((process.env.CACHE_TTL || &#x27;60&#x27;), 10), // seconds
+  max: parseInt((process.env.CACHE_MAX_ITEMS || &#x27;100&#x27;), 10), // maximum number of items in cache
+  isGlobal: true,
+  store: process.env.CACHE_STORE || &#x27;memory&#x27;,
+  host: process.env.REDIS_HOST || &#x27;localhost&#x27;,
+  port: parseInt((process.env.REDIS_PORT || &#x27;6379&#x27;), 10),
+  password: process.env.REDIS_PASSWORD || &#x27;&#x27;,
+}))</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="databaseConfig"></a>
+                    <span class="name">
+                        <span ><b>databaseConfig</b></span>
+                        <a href="#databaseConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>registerAs(&#x27;database&#x27;, () &#x3D;&gt; ({
+  url: process.env.DATABASE_URL || &#x27;postgresql://postgres:postgres@localhost:5432/lunar_calendar&#x27;,
+}))</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="securityConfig"></a>
+                    <span class="name">
+                        <span ><b>securityConfig</b></span>
+                        <a href="#securityConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>registerAs(&#x27;security&#x27;, () &#x3D;&gt; ({
+  cors: {
+    enabled: process.env.CORS_ENABLED &#x3D;&#x3D;&#x3D; &#x27;true&#x27;,
+    origin: process.env.CORS_ORIGIN || &#x27;*&#x27;,
+    methods: process.env.CORS_METHODS || &#x27;GET,HEAD,PUT,PATCH,POST,DELETE&#x27;,
+    credentials: process.env.CORS_CREDENTIALS &#x3D;&#x3D;&#x3D; &#x27;true&#x27;,
+  },
+  rateLimit: {
+    ttl: parseInt((process.env.RATE_LIMIT_TTL || &#x27;60&#x27;), 10) ,
+    limit: parseInt((process.env.RATE_LIMIT_MAX || &#x27;100&#x27;), 10),
+  },
+  csrf: {
+    enabled: process.env.CSRF_ENABLED &#x3D;&#x3D;&#x3D; &#x27;true&#x27;,
+    cookieName: process.env.CSRF_COOKIE_NAME || &#x27;__Host-psifi.x-csrf-token&#x27;,
+    headerName: process.env.CSRF_HEADER_NAME || &#x27;x-csrf-token&#x27;,
+    secret: process.env.CSRF_SECRET || &#x27;your_32_character_secret_key_here&#x27;,
+  },
+}))</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/cache/decorators/cache-key.decorator.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CACHE_KEY_METADATA"></a>
+                    <span class="name">
+                        <span ><b>CACHE_KEY_METADATA</b></span>
+                        <a href="#CACHE_KEY_METADATA"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;cache_key_metadata&#x27;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CacheKey"></a>
+                    <span class="name">
+                        <span ><b>CacheKey</b></span>
+                        <a href="#CacheKey"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(key: string) &#x3D;&gt; SetMetadata(CACHE_KEY_METADATA, key)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/drizzle/schema.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="calendarData"></a>
+                    <span class="name">
+                        <span ><b>calendarData</b></span>
+                        <a href="#calendarData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>pgTable(&#x27;calendar_data&#x27;, {
+  id: serial(&#x27;id&#x27;).primaryKey(),
+  solarDate: date(&#x27;solar_date&#x27;, { mode: &#x27;string&#x27; }).notNull().unique(), // Ngày Dương Lịch YYYY-MM-DD
+  lunarDate: date(&#x27;lunar_date&#x27;, { mode: &#x27;string&#x27; }).notNull(), // Ngày Âm Lịch YYYY-MM-DD
+  canChiDay: varchar(&#x27;can_chi_day&#x27;, { length: 10 }),
+  canChiMonth: varchar(&#x27;can_chi_month&#x27;, { length: 10 }),
+  canChiYear: varchar(&#x27;can_chi_year&#x27;, { length: 10 }),
+  // Thêm các trường khác của Lịch Hồ Ngọc Đức như Tiết Khí, Sao Tốt/Xấu...
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="events"></a>
+                    <span class="name">
+                        <span ><b>events</b></span>
+                        <a href="#events"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>pgTable(&#x27;events&#x27;, {
+  id: serial(&#x27;id&#x27;).primaryKey(),
+  userId: serial(&#x27;user_id&#x27;)
+    .references(() &#x3D;&gt; users.id, { onDelete: &#x27;cascade&#x27; })
+    .notNull(), // Khóa ngoại tới user
+  title: varchar(&#x27;title&#x27;, { length: 256 }).notNull(),
+  description: text(&#x27;description&#x27;),
+
+  // Ngày Âm Lịch (Ngày, Tháng, Năm - Dựa trên Hồ Ngọc Đức)
+  lunarDay: integer(&#x27;lunar_day&#x27;).notNull(), // Ngày âm lịch (1-30)
+  lunarMonth: integer(&#x27;lunar_month&#x27;).notNull(), // Tháng âm lịch (1-12)
+  lunarYear: integer(&#x27;lunar_year&#x27;).notNull(), // Năm âm lịch
+  isLeapMonth: boolean(&#x27;is_leap_month&#x27;).default(false), // Có phải tháng nhuận không
+
+  // Có thể thêm ngày Dương Lịch tương ứng để dễ query
+  solarDate: date(&#x27;solar_date&#x27;, { mode: &#x27;string&#x27; }).notNull(),
+
+  // Loại sự kiện (Ví dụ: Công việc, Cá nhân, Lễ hội)
+  type: varchar(&#x27;type&#x27;, { length: 50 }).default(&#x27;personal&#x27;),
+
+  isPrivate: boolean(&#x27;is_private&#x27;).default(true),
+  
+  reminderDays: integer(&#x27;reminder_days&#x27;), // Số ngày nhắc trước sự kiện
+
+  createdAt: timestamp(&#x27;created_at&#x27;).defaultNow().notNull(),
+  updatedAt: timestamp(&#x27;updated_at&#x27;),
+}, (table) &#x3D;&gt; {
+  return {
+    userIdIdx: index(&#x27;events_user_id_idx&#x27;).on(table.userId),
+    solarDateIdx: index(&#x27;events_solar_date_idx&#x27;).on(table.solarDate),
+    typeIdx: index(&#x27;events_type_idx&#x27;).on(table.type),
+  };
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="media"></a>
+                    <span class="name">
+                        <span ><b>media</b></span>
+                        <a href="#media"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>pgTable(&#x27;media&#x27;, {
+  id: serial(&#x27;id&#x27;).primaryKey(),
+  userId: serial(&#x27;user_id&#x27;)
+    .references(() &#x3D;&gt; users.id, { onDelete: &#x27;cascade&#x27; })
+    .notNull(), // Khóa ngoại tới user
+  fileName: varchar(&#x27;file_name&#x27;, { length: 256 }).notNull(),
+  originalName: varchar(&#x27;original_name&#x27;, { length: 256 }).notNull(),
+  mimeType: varchar(&#x27;mime_type&#x27;, { length: 100 }).notNull(),
+  size: integer(&#x27;size&#x27;).notNull(), // Kích thước file (bytes)
+  path: varchar(&#x27;path&#x27;, { length: 512 }).notNull(), // Đường dẫn lưu trữ
+  type: mediaTypeEnum(&#x27;type&#x27;).notNull(), // Loại media (image, video, document, icon)
+  description: text(&#x27;description&#x27;),
+  isPublic: boolean(&#x27;is_public&#x27;).default(false),
+  createdAt: timestamp(&#x27;created_at&#x27;).defaultNow().notNull(),
+  updatedAt: timestamp(&#x27;updated_at&#x27;),
+}, (table) &#x3D;&gt; {
+  return {
+    userIdIdx: index(&#x27;media_user_id_idx&#x27;).on(table.userId),
+    typeIdx: index(&#x27;media_type_idx&#x27;).on(table.type),
+    createdAtIdx: index(&#x27;media_created_at_idx&#x27;).on(table.createdAt),
+  };
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mediaTypeEnum"></a>
+                    <span class="name">
+                        <span ><b>mediaTypeEnum</b></span>
+                        <a href="#mediaTypeEnum"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>pgEnum(&#x27;media_type&#x27;, [&#x27;image&#x27;, &#x27;video&#x27;, &#x27;document&#x27;, &#x27;icon&#x27;])</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="users"></a>
+                    <span class="name">
+                        <span ><b>users</b></span>
+                        <a href="#users"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>pgTable(&#x27;users&#x27;, {
+  id: serial(&#x27;id&#x27;).primaryKey(),
+  email: varchar(&#x27;email&#x27;, { length: 256 }).unique(), // Có thể null nếu đăng nhập bằng phone
+  passwordHash: text(&#x27;password_hash&#x27;), // Có thể null nếu đăng nhập bằng Google hoặc phone
+  displayName: varchar(&#x27;display_name&#x27;, { length: 256 }),
+  googleId: varchar(&#x27;google_id&#x27;, { length: 256 }).unique(), // ID từ Google OAuth
+  phone: varchar(&#x27;phone&#x27;, { length: 20 }).unique(), // Số điện thoại cho Phone Auth
+  createdAt: timestamp(&#x27;created_at&#x27;).defaultNow().notNull(),
+}, (table) &#x3D;&gt; {
+  return {
+    emailIdx: index(&#x27;users_email_idx&#x27;).on(table.email),
+    createdAtIdx: index(&#x27;users_created_at_idx&#x27;).on(table.createdAt),
+  };
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/auth/decorators/user.decorator.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="User"></a>
+                    <span class="name">
+                        <span ><b>User</b></span>
+                        <a href="#User"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>createParamDecorator(
+  (data: string, ctx: ExecutionContext) &#x3D;&gt; {
+    const request &#x3D; ctx.switchToHttp().getRequest();
+    const user &#x3D; request.user;
+
+    return data ? user?.[data] : user;
+  },
+)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-variables';
+            var COMPODOC_CURRENT_PAGE_URL = 'variables.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

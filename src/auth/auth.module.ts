@@ -12,20 +12,19 @@ import { ConfigModule } from '@nestjs/config';
 import type { ConfigType } from '@nestjs/config';
 import { appConfig, authConfig } from '../config/config';
 
-
 @Module({
   imports: [
     PassportModule,
     DrizzleModule,
     ConfigModule.forFeature(authConfig),
-    ConfigModule.forFeature(appConfig), 
+    ConfigModule.forFeature(appConfig),
     JwtModule.registerAsync({
       imports: [ConfigModule.forFeature(authConfig)],
       useFactory: async (authConfiguration: ConfigType<typeof authConfig>) => ({
         secret: authConfiguration.jwtSecret,
         signOptions: { expiresIn: authConfiguration.jwtExpirationTime },
       }),
-      inject: [authConfig.KEY]
+      inject: [authConfig.KEY],
     }),
   ],
   controllers: [AuthController],
@@ -38,6 +37,10 @@ import { appConfig, authConfig } from '../config/config';
     {
       provide: authConfig.KEY,
       useFactory: () => authConfig(),
+    },
+    {
+      provide: appConfig.KEY,
+      useFactory: () => appConfig(),
     },
   ],
   exports: [AuthService],

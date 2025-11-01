@@ -9,18 +9,34 @@ import {
   VersionInfoResponse,
 } from './interfaces/health-response.interface';
 import { sql } from 'drizzle-orm';
-import packageJson from '../../package.json';	
+import packageJson from '../../package.json';
+import {
+  DiskHealthIndicator,
+  HealthCheckResult,
+  HealthCheckService,
+  MemoryHealthIndicator,
+} from '@nestjs/terminus';
 
 @Injectable()
 export class HealthService {
-  constructor(private readonly drizzleService: DrizzleService) {}
+  constructor(
+    private readonly drizzleService: DrizzleService,
+    private readonly health: HealthCheckService,
+    private readonly disk: DiskHealthIndicator,
+    private memory: MemoryHealthIndicator,
+  ) {}
 
-  async getHealth(): Promise<HealthResponse> {
-    return {
-      status: 'ok',
-      timestamp: new Date().toISOString(),
-      uptime: process.uptime(),
-    };
+  async getHealth(): Promise<HealthCheckResult> {
+    return this.health.check([
+      async () =>
+        this.disk.checkStorage('root', {
+          // 100GB
+          threshold: 100 * 1024 * 1024 * 1024,
+          path: '/',
+        }),
+      () => this.memory.checkHeap('memory_heap', 150 * 1024 * 1024),
+      () => this.memory.checkRSS('memory_rss', 150 * 1024 * 1024),
+    ]);
   }
 
   async getSystemInfo(): Promise<SystemInfoResponse> {
@@ -39,6 +55,7 @@ export class HealthService {
         totalMemory: os.totalmem(),
         freeMemory: os.freemem(),
         cpuUsage: totalCpuUsage,
+        cpus,
       },
       process: {
         pid: process.pid,
@@ -50,7 +67,8 @@ export class HealthService {
   async getDatabaseInfo(): Promise<DatabaseInfoResponse> {
     let dbStatus = true;
     let dbVersion = '';
-    let connectionDetails = {} as DatabaseInfoResponse['database']['connectionPool'];
+    let connectionDetails =
+      {} as DatabaseInfoResponse['database']['connectionPool'];
     let responseTime = 0;
 
     try {
