@@ -13,7 +13,7 @@ export class MediaService {
   constructor(private readonly drizzleService: DrizzleService) {}
 
   async create(
-    userId: number,
+    userId: string,
     file: Express.Multer.File,
     createMediaDto: CreateMediaDto,
   ) {
@@ -38,7 +38,7 @@ export class MediaService {
     return result[0];
   }
 
-  async findAll(userId: number, getMediaDto: GetMediaDto = {}) {
+  async findAll(userId: string, getMediaDto: GetMediaDto = {}) {
     const { type, isPublic } = getMediaDto;
     const mediaQuery = this.drizzleService.db.select().from(media);
     let query = mediaQuery.where(eq(media.userId, userId));
@@ -54,7 +54,7 @@ export class MediaService {
     return query;
   }
 
-  async findOne(userId: number, id: number) {
+  async findOne(userId: string, id: string) {
     const result = await this.drizzleService.db
       .select()
       .from(media)
@@ -67,7 +67,7 @@ export class MediaService {
     return result[0];
   }
 
-  async update(userId: number, id: number, updateMediaDto: UpdateMediaDto) {
+  async update(userId: string, id: string, updateMediaDto: UpdateMediaDto) {
     const mediaItem = await this.findOne(userId, id);
 
     if (!mediaItem) {
@@ -88,7 +88,7 @@ export class MediaService {
     return result[0];
   }
 
-  async remove(userId: number, id: number) {
+  async remove(userId: string, id: string) {
     const mediaItem = await this.findOne(userId, id);
 
     if (!mediaItem) {

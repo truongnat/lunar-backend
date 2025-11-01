@@ -1,6 +1,6 @@
 CREATE TYPE "public"."media_type" AS ENUM('image', 'video', 'document', 'icon');--> statement-breakpoint
 CREATE TABLE "calendar_data" (
-	"id" serial PRIMARY KEY NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"solar_date" date NOT NULL,
 	"lunar_date" date NOT NULL,
 	"can_chi_day" varchar(10),
@@ -10,8 +10,8 @@ CREATE TABLE "calendar_data" (
 );
 --> statement-breakpoint
 CREATE TABLE "events" (
-	"id" serial PRIMARY KEY NOT NULL,
-	"user_id" serial NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"user_id::uuid" uuid NOT NULL,
 	"title" varchar(256) NOT NULL,
 	"description" text,
 	"lunar_day" integer NOT NULL,
@@ -27,8 +27,8 @@ CREATE TABLE "events" (
 );
 --> statement-breakpoint
 CREATE TABLE "media" (
-	"id" serial PRIMARY KEY NOT NULL,
-	"user_id" serial NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"user_id::uuid" uuid NOT NULL,
 	"file_name" varchar(256) NOT NULL,
 	"original_name" varchar(256) NOT NULL,
 	"mime_type" varchar(100) NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE "media" (
 );
 --> statement-breakpoint
 CREATE TABLE "users" (
-	"id" serial PRIMARY KEY NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"email" varchar(256),
 	"password_hash" text,
 	"display_name" varchar(256),
@@ -54,13 +54,11 @@ CREATE TABLE "users" (
 	CONSTRAINT "users_phone_unique" UNIQUE("phone")
 );
 --> statement-breakpoint
-ALTER TABLE "events" ADD CONSTRAINT "events_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "media" ADD CONSTRAINT "media_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-CREATE INDEX "events_user_id_idx" ON "events" USING btree ("user_id");--> statement-breakpoint
+ALTER TABLE "events" ADD CONSTRAINT "events_user_id::uuid_users_id_fk" FOREIGN KEY ("user_id::uuid") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "media" ADD CONSTRAINT "media_user_id::uuid_users_id_fk" FOREIGN KEY ("user_id::uuid") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+CREATE INDEX "events_user_id_idx" ON "events" USING btree ("user_id::uuid");--> statement-breakpoint
 CREATE INDEX "events_solar_date_idx" ON "events" USING btree ("solar_date");--> statement-breakpoint
 CREATE INDEX "events_type_idx" ON "events" USING btree ("type");--> statement-breakpoint
-CREATE INDEX "media_user_id_idx" ON "media" USING btree ("user_id");--> statement-breakpoint
+CREATE INDEX "media_user_id_idx" ON "media" USING btree ("user_id::uuid");--> statement-breakpoint
 CREATE INDEX "media_type_idx" ON "media" USING btree ("type");--> statement-breakpoint
-CREATE INDEX "media_created_at_idx" ON "media" USING btree ("created_at");--> statement-breakpoint
-CREATE INDEX "users_email_idx" ON "users" USING btree ("email");--> statement-breakpoint
-CREATE INDEX "users_created_at_idx" ON "users" USING btree ("created_at");
+CREATE INDEX "media_created_at_idx" ON "media" USING btree ("created_at");

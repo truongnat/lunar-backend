@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1761973112824,
-      "tag": "0000_many_darwin",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1762006324681,
-      "tag": "0001_wide_red_ghost",
+      "when": 1762004977394,
+      "tag": "0000_init",
       "breakpoints": true
     }
   ]

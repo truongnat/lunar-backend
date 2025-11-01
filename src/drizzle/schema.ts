@@ -1,3 +1,4 @@
+import { sql } from 'drizzle-orm';
 import {
   pgTable,
   serial,
@@ -9,13 +10,14 @@ import {
   integer,
   pgEnum,
   index,
+  uuid,
 } from 'drizzle-orm/pg-core';
 
 // Bảng Users (2. Auth)
 export const users = pgTable(
   'users',
   {
-    id: serial('id').primaryKey(),
+    id: uuid('id').default(sql`gen_random_uuid()`).primaryKey(),
     email: varchar('email', { length: 256 }).unique(), // Có thể null nếu đăng nhập bằng phone
     passwordHash: text('password_hash'), // Có thể null nếu đăng nhập bằng Google hoặc phone
     displayName: varchar('display_name', { length: 256 }),
@@ -35,8 +37,8 @@ export const users = pgTable(
 export const events = pgTable(
   'events',
   {
-    id: serial('id').primaryKey(),
-    userId: serial('user_id')
+    id: uuid('id').default(sql`gen_random_uuid()`).primaryKey(),
+    userId: uuid('user_id::uuid')
       .references(() => users.id, { onDelete: 'cascade' })
       .notNull(), // Khóa ngoại tới user
     title: varchar('title', { length: 256 }).notNull(),
@@ -72,7 +74,7 @@ export const events = pgTable(
 // Dữ liệu này thường được xử lý ở frontend hoặc import 1 lần.
 // Nếu muốn lưu trữ các thông tin như Can Chi, Tiết Khí...
 export const calendarData = pgTable('calendar_data', {
-  id: serial('id').primaryKey(),
+  id: uuid('id').default(sql`gen_random_uuid()`).primaryKey(),
   solarDate: date('solar_date', { mode: 'string' }).notNull().unique(), // Ngày Dương Lịch YYYY-MM-DD
   lunarDate: date('lunar_date', { mode: 'string' }).notNull(), // Ngày Âm Lịch YYYY-MM-DD
   canChiDay: varchar('can_chi_day', { length: 10 }),
@@ -93,8 +95,8 @@ export const mediaTypeEnum = pgEnum('media_type', [
 export const media = pgTable(
   'media',
   {
-    id: serial('id').primaryKey(),
-    userId: serial('user_id')
+    id: uuid('id').default(sql`gen_random_uuid()`).primaryKey(),
+    userId: uuid('user_id::uuid')
       .references(() => users.id, { onDelete: 'cascade' })
       .notNull(), // Khóa ngoại tới user
     fileName: varchar('file_name', { length: 256 }).notNull(),

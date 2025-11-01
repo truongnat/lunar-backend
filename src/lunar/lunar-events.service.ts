@@ -14,7 +14,7 @@ export class LunarEventsService {
     private readonly lunarService: LunarService,
   ) {}
 
-  async create(userId: number, createEventDto: CreateEventDto) {
+  async create(userId: string, createEventDto: CreateEventDto) {
     const {
       title,
       description,
@@ -60,7 +60,7 @@ export class LunarEventsService {
     return result[0];
   }
 
-  async findAll(userId: number, getEventsDto: GetEventsDto = {}) {
+  async findAll(userId: string, getEventsDto: GetEventsDto = {}) {
     const { lunarMonth, lunarYear, type } = getEventsDto;
 
     let query = this.drizzleService.db
@@ -95,7 +95,7 @@ export class LunarEventsService {
     return query;
   }
 
-  async findOne(userId: number, id: number) {
+  async findOne(userId: string, id: string) {
     const result = await this.drizzleService.db
       .select()
       .from(events)
@@ -104,7 +104,7 @@ export class LunarEventsService {
     return result[0];
   }
 
-  async update(userId: number, id: number, updateEventDto: UpdateEventDto) {
+  async update(userId: string, id: string, updateEventDto: UpdateEventDto) {
     const event = await this.findOne(userId, id);
 
     if (!event) {
@@ -159,7 +159,7 @@ export class LunarEventsService {
     return result[0];
   }
 
-  async remove(userId: number, id: number) {
+  async remove(userId: string, id: string) {
     const result = await this.drizzleService.db
       .delete(events)
       .where(and(eq(events.id, id), eq(events.userId, userId)))

@@ -1,9 +1,27 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UseGuards, UseInterceptors } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  Query,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { LunarEventsService } from './lunar-events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { GetEventsDto } from './dto/get-events.dto';
-import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBody,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { User } from '../auth/decorators/user.decorator';
 import { HttpCacheInterceptor } from '../cache/interceptors/http-cache.interceptor';
@@ -18,9 +36,12 @@ export class LunarEventsController {
 
   @Post()
   @ApiOperation({ summary: 'Create a new lunar event' })
-  @ApiResponse({ status: 201, description: 'The event has been successfully created.' })
+  @ApiResponse({
+    status: 201,
+    description: 'The event has been successfully created.',
+  })
   @ApiBody({ type: CreateEventDto })
-  create(@User('id') userId: number, @Body() createEventDto: CreateEventDto) {
+  create(@User('id') userId: string, @Body() createEventDto: CreateEventDto) {
     return this.lunarEventsService.create(userId, createEventDto);
   }
 
@@ -28,8 +49,11 @@ export class LunarEventsController {
   @UseInterceptors(HttpCacheInterceptor)
   @CacheKey('lunar-events-all')
   @ApiOperation({ summary: 'Get all lunar events' })
-  @ApiResponse({ status: 200, description: 'Returns all lunar events for the user' })
-  findAll(@User('id') userId: number, @Query() getEventsDto: GetEventsDto) {
+  @ApiResponse({
+    status: 200,
+    description: 'Returns all lunar events for the user',
+  })
+  findAll(@User('id') userId: string, @Query() getEventsDto: GetEventsDto) {
     return this.lunarEventsService.findAll(userId, getEventsDto);
   }
 
@@ -37,18 +61,24 @@ export class LunarEventsController {
   @UseInterceptors(HttpCacheInterceptor)
   @CacheKey('lunar-event')
   @ApiOperation({ summary: 'Get a specific lunar event' })
-  @ApiResponse({ status: 200, description: 'Returns the specified lunar event' })
-  findOne(@User('id') userId: number, @Param('id', ParseIntPipe) id: number) {
+  @ApiResponse({
+    status: 200,
+    description: 'Returns the specified lunar event',
+  })
+  findOne(@User('id') userId: string, @Param('id') id: string) {
     return this.lunarEventsService.findOne(userId, id);
   }
 
   @Patch(':id')
   @ApiOperation({ summary: 'Update a lunar event' })
-  @ApiResponse({ status: 200, description: 'The event has been successfully updated.' })
+  @ApiResponse({
+    status: 200,
+    description: 'The event has been successfully updated.',
+  })
   @ApiBody({ type: UpdateEventDto })
   update(
-    @User('id') userId: number,
-    @Param('id', ParseIntPipe) id: number,
+    @User('id') userId: string,
+    @Param('id') id: string,
     @Body() updateEventDto: UpdateEventDto,
   ) {
     return this.lunarEventsService.update(userId, id, updateEventDto);
@@ -56,8 +86,11 @@ export class LunarEventsController {
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete a lunar event' })
-  @ApiResponse({ status: 200, description: 'The event has been successfully deleted.' })
-  remove(@User('id') userId: number, @Param('id', ParseIntPipe) id: number) {
+  @ApiResponse({
+    status: 200,
+    description: 'The event has been successfully deleted.',
+  })
+  remove(@User('id') userId: string, @Param('id') id: string) {
     return this.lunarEventsService.remove(userId, id);
   }
 }
