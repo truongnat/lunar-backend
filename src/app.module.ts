@@ -18,8 +18,8 @@ import config from './config/config';
       load: [config],
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'uploads'),
-      serveRoot: '/uploads',
+      rootPath: join(__dirname, '..', '..', 'uploads'),
+      serveRoot: '/uploads/',
     }),
     DrizzleModule,
     AuthModule,

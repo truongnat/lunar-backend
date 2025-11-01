@@ -6,7 +6,6 @@ import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
 import { ConfigService } from '@nestjs/config';
 import helmet from 'helmet';
-import { appConfig } from './config/config';
 
 async function bootstrap() {
   // Cấu hình logger
