@@ -6,6 +6,7 @@ import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { MediaController } from './media.controller';
+import { ImageProcessorService } from './image-processor.service';
 
 @Module({
   imports: [
@@ -32,7 +33,7 @@ import { MediaController } from './media.controller';
           'application/vnd.ms-excel',
           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         ];
-        
+
         if (allowedMimeTypes.includes(file.mimetype)) {
           callback(null, true);
         } else {
@@ -45,7 +46,7 @@ import { MediaController } from './media.controller';
     }),
   ],
   controllers: [MediaController],
-  providers: [MediaService],
-  exports: [MediaService],
+  providers: [MediaService, ImageProcessorService],
+  exports: [MediaService, ImageProcessorService],
 })
 export class MediaModule {}

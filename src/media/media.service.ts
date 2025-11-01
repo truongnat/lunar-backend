@@ -6,11 +6,14 @@ import { GetMediaDto } from './dto/get-media.dto';
 import { media } from '../drizzle/schema';
 import { and, eq } from 'drizzle-orm';
 import * as fs from 'fs';
-import * as path from 'path';
+import { ImageProcessorService } from './image-processor.service';
 
 @Injectable()
 export class MediaService {
-  constructor(private readonly drizzleService: DrizzleService) {}
+  constructor(
+    private readonly drizzleService: DrizzleService,
+    private readonly imageProcessor: ImageProcessorService,
+  ) {}
 
   async create(
     userId: string,
@@ -36,6 +39,10 @@ export class MediaService {
       .returning();
 
     return result[0];
+  }
+
+  async createImage(file: Express.Multer.File) {
+    return await this.imageProcessor.processAndResize(file);
   }
 
   async findAll(userId: string, getMediaDto: GetMediaDto = {}) {

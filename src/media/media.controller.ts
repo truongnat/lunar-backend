@@ -74,6 +74,38 @@ export class MediaController {
     return this.mediaService.create(userId, file, createMediaDto);
   }
 
+  @Post('upload/image')
+  @ApiOperation({ summary: 'Upload a new image file' })
+  @ApiResponse({
+    status: 201,
+    description: 'The file has been successfully uploaded.',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+        description: {
+          type: 'string',
+        },
+        isPublic: {
+          type: 'boolean',
+        },
+      },
+    },
+  })
+  @UseInterceptors(FileInterceptor('file'))
+  uploadImage(
+    @User('id') userId: string,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.mediaService.createImage(file);
+  }
+
   @Get()
   @UseInterceptors(HttpCacheInterceptor)
   @CacheKey('media-all')
