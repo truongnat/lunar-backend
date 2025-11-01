@@ -6,7 +6,8 @@ import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
 import { ConfigService } from '@nestjs/config';
 import helmet from 'helmet';
-
+import compression from 'compression';
+import { constants } from 'zlib'; // Dùng để truy cập các hằng số của Brotli
 async function bootstrap() {
   // Cấu hình logger
   const logger = WinstonModule.createLogger({
@@ -60,13 +61,39 @@ async function bootstrap() {
     });
   }
 
+  app.use(
+    compression({
+      // 1. Cấu hình Chung
+      threshold: 1024, // Chỉ nén các phản hồi lớn hơn 1KB
+
+      // 2. Cấu hình Brotli (Nếu trình duyệt hỗ trợ Brotli, nó sẽ sử dụng cấu hình này)
+      brotli: {
+        params: {
+          // Mức nén tốt nhất (chậm hơn, nhưng giảm kích thước tối đa)
+          [constants.BROTLI_PARAM_QUALITY]: 11,
+
+          // Chế độ nén Text (tối ưu cho web)
+          [constants.BROTLI_PARAM_MODE]: constants.BROTLI_MODE_TEXT,
+
+          // Kích thước cửa sổ trượt lớn nhất
+          [constants.BROTLI_PARAM_LGWIN]: 24,
+        },
+      },
+
+      // 3. Cấu hình Gzip/Deflate (Nếu trình duyệt KHÔNG hỗ trợ Brotli, nó sẽ dùng cấu hình này)
+      level: 6, // Mức nén Gzip/Deflate mặc định
+    }),
+  );
+
   // Cấu hình validation pipe
-  app.useGlobalPipes(new ValidationPipe({ 
-    transform: true,
-    whitelist: true,
-    forbidNonWhitelisted: true 
-  }));
-  
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
+  );
+
   // Cấu hình versioning
   app.enableVersioning({
     type: VersioningType.URI,
