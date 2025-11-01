@@ -1,0 +1,83 @@
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, UseInterceptors, UploadedFile, ParseIntPipe, Query } from '@nestjs/common';
+import { MediaService } from './media.service';
+import { CreateMediaDto } from './dto/create-media.dto';
+import { UpdateMediaDto } from './dto/update-media.dto';
+import { GetMediaDto } from './dto/get-media.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { User } from '../auth/decorators/user.decorator';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiTags, ApiOperation, ApiResponse, ApiConsumes, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
+
+@ApiTags('Media')
+@Controller('media')
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
+export class MediaController {
+  constructor(private readonly mediaService: MediaService) {}
+
+  @Post('upload')
+  @ApiOperation({ summary: 'Upload a new media file' })
+  @ApiResponse({ status: 201, description: 'The file has been successfully uploaded.' })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+        type: {
+          type: 'string',
+          enum: ['image', 'video', 'document', 'icon'],
+        },
+        description: {
+          type: 'string',
+        },
+        isPublic: {
+          type: 'boolean',
+        },
+      },
+    },
+  })
+  @UseInterceptors(FileInterceptor('file'))
+  upload(
+    @User('id') userId: number,
+    @UploadedFile() file: Express.Multer.File,
+    @Body() createMediaDto: CreateMediaDto,
+  ) {
+    return this.mediaService.create(userId, file, createMediaDto);
+  }
+
+  @Get()
+  @ApiOperation({ summary: 'Get all media files' })
+  @ApiResponse({ status: 200, description: 'Returns all media files for the user' })
+  findAll(@User('id') userId: number, @Query() getMediaDto: GetMediaDto) {
+    return this.mediaService.findAll(userId, getMediaDto);
+  }
+
+  @Get(':id')
+  @ApiOperation({ summary: 'Get a specific media file' })
+  @ApiResponse({ status: 200, description: 'Returns the specified media file' })
+  findOne(@User('id') userId: number, @Param('id', ParseIntPipe) id: number) {
+    return this.mediaService.findOne(userId, id);
+  }
+
+  @Patch(':id')
+  @ApiOperation({ summary: 'Update a media file' })
+  @ApiResponse({ status: 200, description: 'The media file has been successfully updated.' })
+  update(
+    @User('id') userId: number,
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateMediaDto: UpdateMediaDto,
+  ) {
+    return this.mediaService.update(userId, id, updateMediaDto);
+  }
+
+  @Delete(':id')
+  @ApiOperation({ summary: 'Delete a media file' })
+  @ApiResponse({ status: 200, description: 'The media file has been successfully deleted.' })
+  remove(@User('id') userId: number, @Param('id', ParseIntPipe) id: number) {
+    return this.mediaService.remove(userId, id);
+  }
+}
