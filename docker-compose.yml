@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine # Sử dụng phiên bản PostgreSQL ổn định và nhẹ
+    restart: always
+    environment:
+      # Các biến môi trường này khớp với ví dụ trong file .env
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: vietnam_lunar_db
+    volumes:
+      # Lưu trữ dữ liệu vào thư mục local để dữ liệu không bị mất khi container dừng
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      # Ánh xạ port: local:container
+      - "5432:5432"
+
+volumes:
+  postgres_data:
+    driver: local
+
